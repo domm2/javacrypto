@@ -1,0 +1,50 @@
+FileSharing Usage Information
+
+USAGE:
+ To start Group Server: java RunGroupServer [(optional) port number]
+ When the group server is first started, there are no users or groups. Since
+ there must be an administer of the system, the user is prompted via the console
+ to enter a username. This name becomes the first user and is a member of the
+ first and only group so far, ADMIN. The group server will by default select
+ (and print out) a random port, but a custom port can be passed as the first
+ command line argument.
+
+ To start the File Server: java RunFileServer [(optional) port number] The file
+ server will create a shared_files inside the working directory if one does not
+ exist. The file server is now online. The file server will by default select
+ (and print out) a random port, but a custom port can be passed as the first
+ command line argument.
+
+ To reset the File server completely, delete FileList.bin and the shared_files
+ directory.
+ To reset the Group Server, delete UserList.bin and GroupList.bin
+
+To start the CLI application: 
+java Driver [file_server_ip] [file_server_port] [group_server_ip] [group_server_port]
+The user will first be asked for their name and will receive a token. 
+After, the user may use 'help to read instructions on how to use the application.
+
+
+FILENAMES:
+RunFileServer.java                  Initializes file server
+RunGroupServer.java                 Initializes group server
+Driver.java                         CLI interface for the servers
+
+Envelope.java                       Class used to send messages between clients and threads
+Client.java                         Abstract client class
+Server.java                         Abstract server class
+
+FileClient.java                     Client application for the file server
+FileClientInterface.java            Client interface for the file server
+FileList.java                       Serializable object used for saving the file list
+FileServer.java                     Server that stores files in saved file directory
+FileThread.java                     Worker thread for file management for users with valid tokens
+ShareFile.java                      Class to help with sharing files
+
+
+GroupClient.java                    Client application for the group server
+GroupClientInterface.java           Client interace for the group server
+GroupList.java                      Serializable object used for saving the group list
+UserList.java                       Serializable object used for saving the user list
+GroupServer.java                    Server that creates and oversees users and groups 
+GroupThread.java                    Worker thread for user and group management

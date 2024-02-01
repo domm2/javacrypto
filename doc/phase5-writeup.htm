@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>CS 1653 Project P5 Writeup</title>
+  <style>
+/* BEGIN CHANGES HERE */
+
+/* In this section, you may add CSS styling if desired */
+header {
+  text-align: center;
+}
+
+/* END CHANGES HERE */
+  </style>
+  <body>
+    <header>
+      <h1>CS 1653 Project P5 Writeup</h1>
+      <h2>
+<!-- BEGIN CHANGES HERE -->
+
+Add your names and Pitt email addresses here
+
+<!-- END CHANGES HERE -->
+      </h2>
+    </header>
+    <section id="overview">
+      <h2>Overview</h2>
+<!-- BEGIN CHANGES HERE -->
+
+<p>Trust Model</p>
+<ol>
+  <li>The Group Server is entirely trustworthy. In this phase of the project, this means that the group server will only issue tokens to properly authenticated clients and will properly enforce the constraints on group creation, deletion, and management specified in previous phases of the project. The group server is not assumed to share secrets with the file servers in the system. The group server may also be vulnerable to DDoS attacks.
+</li>
+  <li>File Servers In this phase of the project, file servers will be assumed to be largely untrusted. In particular, file servers might leak files to unauthorized users, delete shared files, or attempt to steal user tokens. The file server may also be vulnerable to DDoS attacks.</li>
+  <li>Clients We will assume that clients are not trustworthy. Specifically, clients may attempt to obtain tokens that belong to other users and/or modify the tokens issued to them by the group server to acquire additional permissions.</li>
+  <li> Other Principals You should assume that all communications in the system might be intercepted by an active attacker that can insert, reorder, replay, or modify messages. There may be outdated or unpatched software libraries that make the system vulnerable to known vulnerabilities or exploits.</li>
+</ol>
+
+<!-- END CHANGES HERE -->
+    </section>
+    <section id="threatmodel">
+      <h2>Threat Model</h2>
+<!-- BEGIN CHANGES HERE -->
+
+<ol>
+  <li>File server deletion of files: In this scenario, file servers may attempt to delete shared files in order to prevent other users from accessing them. This could be done intentionally by malicious file servers, or accidentally through errors or mistakes.</li>
+  <li>Distributed Denial of Service (DDoS) attacks: In a DDoS attack, attackers may use multiple computers to launch a coordinated attack on the group server, overwhelming it with traffic and preventing legitimate users from accessing the service. This could be done in order to disrupt the file sharing system or as part of a larger attack on the network or infrastructure.
+</li>
+  <li>Software Library Exploits: If a file sharing system is using outdated or unpatched software, it may be vulnerable to known vulnerabilities or exploits that have already been discovered and addressed in newer versions of the software. These vulnerabilities may allow attackers to gain unauthorized access to the file sharing system, steal sensitive data, or disrupt the operation of the system.
+</li>
+</ol>
+
+<!-- END CHANGES HERE -->
+    </section>
+    <section id="attack">
+      <h2>Attacks</h2>
+<!-- BEGIN CHANGES HERE -->
+
+      <h3> Threat 1  File Deletion</h3> 
+<p>The file deletion threat refers to the potential for file servers to intentionally or accidentally delete shared files in the file sharing system. This could be done by malicious file servers that want to prevent other users from accessing the files, or by file servers that make errors or mistakes that result in the deletion of the files. In either case, the result is the same: users are unable to access the shared files, which can cause inconvenience and disruption to the file sharing system.
+</p>
+<p>There are several ways that a file server could delete shared files. For example, the file server could simply delete the files from its storage, making them unavailable to other users. Alternatively, the file server could also alter the metadata associated with the files, such as the file names or permissions, in order to make them inaccessible to other users.
+ </p>
+<p> One potential consequence of this threat is that users may lose access to important files, which could impact their ability to work or collaborate with others. Additionally, if the file deletion is done maliciously, it could also be considered a form of sabotage or vandalism, which could damage the reputation of the file sharing system. To protect against this threat, it is important to have robust security measures in place to prevent unauthorized access to shared files and to monitor file server activity for any suspicious behavior.
+</p>
+      <h4> Step by Step Attack </h4> 
+<p> Deleting files on the file server is easy. The file server could navigate to the shared_files folder and run 
+$ rm -R *.
+</p>
+
+      <h3> Threat 2 DDos Attacks</h3> 
+<p>During a DDoS attack, the attackers may use a network of compromised computers, also known as a botnet, to generate a large amount of traffic and send it to the group server. This flood of traffic can overwhelm the server, making it unable to handle legitimate requests from users. As a result, users may be unable to access the file sharing system or may experience slow or unreliable service.
+</p>
+      <p> The goal of a DDoS attack is to disrupt the operation of the group server and the file sharing system, which can cause inconvenience and frustration for users. In some cases, a DDoS attack may also be part of a larger attack on the network or infrastructure, with the goal of causing more widespread damage.
+</p>
+      <h4> Step by Step Attack </h4> 
+      <p> There are many ways to execute a DDoS attack, but here’s one example.
+</p>
+      <ol>
+  <li> For example, an attacker could just acquire a lot  of servers using AWS</li>
+  <li>Next, the attacker clones the source code for the system on each server
+</li>
+  <li>The client can edit the source code to put the computationally expensive task in an infinite loop, for example, running challenge-response on the file server for an infinite time.
+</li>
+        <li> The attacker will then run multiple processes of the client using spoofed IP addresses
+ </li>
+</ol>
+      <img src="DDOS.drawio.png" alt=DDOS>
+
+      <h3> Threat 3 Unpatched Software </h3> 
+<p>Outdated or unpatched software refers to software that is no longer receiving updates or fixes from the manufacturer. This can include operating systems, applications, and other software that is used in the file sharing system. As time goes on, new vulnerabilities and exploits are discovered in software. These vulnerabilities are often addressed by the manufacturer through updates or patches, which are designed to fix the issue and improve the security of the software.
+</p>
+      <p> If the system is using outdated or unpatched software, it may be vulnerable to known vulnerabilities or exploits that have already been discovered and addressed in newer versions of the software. These vulnerabilities may allow attackers to gain unauthorized access to the file sharing system, steal sensitive data, or disrupt the operation of the system. By keeping the software up to date and applying the latest patches, organizations can reduce the risk of exploitation of known vulnerabilities and improve the security of their file sharing systems.
+</p> 
+      <h4> Step by Step Attack </h4> 
+
+      <ol>
+  <li>The attacker begins by researching the system and its components, looking for known vulnerabilities or exploits that could be used to gain access. The attacker may use various tools and techniques, such as scanning tools, search engines, or underground forums, to identify potential vulnerabilities.
+</li>
+  <li>Once the attacker has identified a potential vulnerability, they may attempt to confirm its existence and determine its exact nature. The attacker may use specialized software or scripts to test the vulnerability, or they may conduct manual testing to identify the steps required to exploit it.
+</li>
+  <li>If the attacker is able to confirm the existence of the vulnerability and determine how to exploit it, they may begin to plan their attack. The attacker may need to gather additional information, such as the IP address or domain name of the file sharing system, in order to target the attack.
+</li>
+  <li>Once the attacker has all the necessary information and tools, they can launch the attack. This may involve sending a specially crafted request or payload to the system, in order to exploit the known vulnerability. If successful, the attack may allow the attacker to gain unauthorized access to the system, steal sensitive data, or disrupt its operation.
+</li>
+  <li>After the attack, the attacker may attempt to cover their tracks and avoid detection. This may involve deleting any evidence of the attack, such as log files or system records, or disguising their actions to make it more difficult to trace the attack back to them.
+</li>
+  <li>In some cases, the attacker may continue to exploit the vulnerability to gain access to the file sharing system over an extended period of time, in order to steal data or disrupt its operation. In other cases, the attacker may move on to other targets once they have achieved their goals.
+</li>
+</ol>
+      
+<!-- END CHANGES HERE -->
+    </section>
+    <section id="countermeasure">
+      <h2>Countermeasures</h2>
+<!-- BEGIN CHANGES HERE -->
+
+ <h3> Threat 1  File Deletion</h3> 
+            <h4> Policy </h4> 
+      <p> A potential countermeasure is to implement regular backups of the shared files. This would allow the system to recover from any accidental or malicious deletions by restoring the files from the most recent backup. The backups could be stored on a separate server or on external storage devices, and could be accessed and restored by authorized users or system administrators.
+      </p>
+      <p>The backups could be stored on a separate server that is isolated from the main file sharing system. This would prevent attackers from accessing the backups even if they were able to compromise the main file servers. The separate server could also be physically secured and protected from unauthorized access, such as through the use of security cameras, access control systems, and other security measures.
+ </p>
+      <h4> Mechanism </h4> 
+<p>The protocol for backing up the shared files:</p>
+      <ol>
+  <li>The designated backup server would initiate the backup process by requesting access to the shared files.</li>
+  <li>The file server would authenticate itself to the backup server using challenge-response authentication with its private key.</li>
+  <li>The backup server would authenticate itself to the file server using challenge-response authentication with its private key.
+</li>
+  <li>The backup server would then access the shared files and download copies of them to the backup storage location.</li>
+  <li>The shared files would be encrypted using a strong encryption algorithm, such as AES-256, and protected with a secure key. The key could be generated by the backup server and securely shared with the file servers.</li>
+  <li>The encrypted shared files would be stored in the backup storage location, which could be a separate server or external storage device.
+</li>
+        <li>The group server or backup server would then regularly monitor the shared files and perform backups on a regular basis, such as daily or weekly.
+</li>
+      </ol>  
+        <p> For redundancy there will be several backup servers and auditing will take place to compare the backups to the original files to detect inconsistencies.
+</p>
+            <img src="Threat1.png" alt=DDOS>
+
+
+      <h3> Threat 2 DDos Attacks</h3> 
+ <h4> Policy </h4> 
+      <p> We can use a firewall monitor the network traffic for signs of a DDoS attack, such as excessive traffic from a single source or unusual traffic patterns. If a DDoS attack is detected, the firewall could automatically implement the appropriate countermeasures, such as blocking the attacking IP addresses or redirecting traffic to a separate server, to mitigate the effects of the attack.
+</p>
+      
+      <h4> Mechanism </h4> 
+<p>Limit connections from a single IP on the linux machine.</p>
+      
+      <p> T# Limit incoming connections from a single IP address
+iptables -A INPUT -p tcp -m connlimit --connlimit-above 50 -j REJECT
+</p>
+      <p> Use machine learning to detect and prevent DDoS attacks, these algorithms could be trained on large datasets of network traffic and DDoS attack patterns, allowing them to identify unusual or suspicious traffic and implement appropriate countermeasures automatically. Then use tcpdump as the input data and make a decision to block the IP or redirect traffic based on the model’s output.
+</p>
+
+      <h3> Threat 3 Unpatched Software </h3> 
+<h4> Policy </h4> 
+      <p> One possible countermeasure to the problem of known vulnerabilities in file sharing systems is to regularly update and patch the software used in the system. By keeping the software up to date and applying the latest patches, we can reduce the risk of exploitation of known vulnerabilities and improve the security of their file sharing systems.
+</p>
+      
+      <h4> Mechanism </h4> 
+<p>GitHub can be used to track and manage software updates and patches in a file sharing system. Here is a step-by-step guide to using GitHub for this purpose:
+</p>
+
+      <ol>
+  <li>We can update our GitHub repo to track the software updates and patches for the system. </li>
+  <li>Add the software used in the system as files or folders in the repository. For example, we can add the bouncy castle library as a dependency.
+</li>
+  <li>Use the "Watch" feature in GitHub to monitor the repository for new updates or patches. This will also watch our dependencies/libraries. This will send email notifications to users when new updates or patches are added to the repository.
+</li>
+  <li>When a new update or patch is released by the manufacturer, we will download it and add it to the repository. This can be done by uploading the update or patch as a new file or folder in the repository, or by committing it to a branch in the repository.
+</li>
+  <li>Use the branching and merging features in GitHub to manage and test the updates or patches before they are applied to the file sharing system. This can involve creating a new branch for each update or patch, testing the update or patch in a non-production environment, and then merging the branch into the main branch once it has been tested and approved.</li>
+  <li>Use the release feature in GitHub to create a new release for each update or patch that is ready to be applied to the file sharing system. This can be used to track the status and history of the updates or patches, and to communicate with other users about the updates or patches.
+</li>
+  <li>Use the deployment feature in GitHub to automate the deployment of updates or patches to the system. This can involve creating a deployment script or pipeline that is triggered when a new release is created on GitHub, which can then be used to apply the update or patch to the file sharing system in a controlled manner.
+</li>
+      </ol>
+
+<p>This can help to ensure that the system is protected against known vulnerabilities and exploits, and is better able to withstand attacks.
+</p>
+
+
+<!-- END CHANGES HERE -->
+    </section>
+  </body>
+</html>

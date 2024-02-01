@@ -1,0 +1,34 @@
+[COMPILE]
+src> javac *.java
+
+or 
+
+chmod a+x ./build.sh
+./build.sh
+
+
+[RUN]
+src > java` RunFileServer` [(optional) port number]
+If a port isn't given, a randomly generated one will appear.
+
+
+In a seperate window, type the following:
+src > java `RunGroupServer` [(optional) port number]
+If a port isn't given, a randomly generated one will appear.
+
+In a seperate window, type the following:
+src > java Driver [file_server_ip] [file_server_port] [group_server_ip] [group_server_port]
+
+
+[INSTRUCTIONS]
+Type `help` for instructions
+Type `exit` for instructions
+
+
+[REMOVE SAVED LISTS]
+rm *.bin
+
+
+[RESET]
+rm *.bin
+rm *.class
